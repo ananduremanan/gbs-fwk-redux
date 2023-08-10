@@ -1,0 +1,52 @@
+{
+  "name": "gbs-fwk-bb-redux",
+  "version": "1.0.0",
+  "description": "building blocks redux",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "types/gbs-fwk-buildingblock.d.ts",
+  "scripts": {
+    "build": "npx rollup -c",
+    "pack": "npx rollup -c && npm pack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "GBS",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.21.0",
+    "@babel/core": "7.22.7",
+    "@babel/preset-env": "7.21.4",
+    "@babel/preset-react": "7.18.6",
+    "@babel/preset-typescript": "7.21.4",
+    "@rollup/plugin-alias": "5.0.0",
+    "@types/react": "18.0.34",
+    "babel-loader": "9.1.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "5.1.6"
+  },
+  "dependencies": {
+    "@rollup/plugin-node-resolve": "15.1.0",
+    "@syncfusion/ej2-react-buttons": "21.1.35",
+    "@syncfusion/ej2-react-calendars": "21.1.35",
+    "@syncfusion/ej2-react-dropdowns": "21.1.35",
+    "@syncfusion/ej2-react-grids": "21.1.35",
+    "@syncfusion/ej2-react-inputs": "21.1.35",
+    "@syncfusion/ej2-react-notifications": "21.1.35",
+    "@syncfusion/ej2-react-popups": "21.1.35",
+    "acorn": "8.9.0",
+    "acorn-walk": "8.2.0",
+    "commander": "10.0.1",
+    "gbs-fwk-core": "latest",
+    "rollup-plugin-babel": "4.4.0",
+    "rollup-plugin-peer-deps-external": "2.2.4",
+    "rollup-plugin-terser": "7.0.2",
+    "rollup-plugin-typescript2": "0.35.0",
+    "rxjs": "7.8.1",
+    "ts-loader": "9.4.3"
+  }
+}

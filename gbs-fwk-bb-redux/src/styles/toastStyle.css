@@ -1,0 +1,15 @@
+.e-toast-container .e-toast {
+  background-color: white;
+  cursor: pointer;
+}
+
+.e-toast-container .e-toast:hover {
+  background-color: rgb(255, 255, 255);
+}
+
+/* To change color, font family and font size */
+.e-toast-container .e-toast .e-toast-message .e-toast-content {
+  color: black;
+  font-size: 13px;
+  font-weight: normal;
+}
