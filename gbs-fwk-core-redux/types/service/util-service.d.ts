@@ -1,0 +1,31 @@
+export declare const utilService: {
+    request(request: RequestInfo, init?: RequestInit, showLoaderIcon?: boolean): Promise<unknown>;
+    docRequest(request: RequestInfo, init?: RequestInit, showLoaderIcon?: boolean): Promise<unknown>;
+    getDateFromDateTime(date: Date): Date;
+    cvs(value: any): boolean;
+    cvn(value: any, gtz?: boolean): boolean;
+    parseJSON(response: any): Promise<unknown>;
+    getGUID(): `${string}-${string}-${string}-${string}-${string}`;
+    encrypt(message?: string): string;
+    decrypt(transitmessage?: string): string;
+    prepareXml(apiKey: string, payload: any, payloadDecryption?: boolean): {
+        spolru: string;
+        psulpsf: any;
+    };
+    jsonParse: (jsonString: string, array?: boolean) => any;
+    jsonParseArray: (result: any, array?: boolean) => any;
+    checkValidGUID: (guid: string) => string;
+    isValidGUID: (guid: string | undefined) => boolean;
+    validString: (value: any) => boolean;
+    addAuthorizationHeader: (init?: RequestInit) => RequestInit;
+    base64ToHex: (str: string) => string;
+    hexToBase64: (str: string) => string;
+    getUTCDate: (localDate: Date) => Date;
+    showLoader: () => void;
+    hideLoader: () => void;
+    sEncrypt: (message?: string) => string;
+    sDecrypt: (transitmessage?: string) => string;
+    getDeepCopy: (value: any) => any;
+    setLocalStorage: (keyName: string, entity: any) => void;
+    getLocalStorage: (keyName: string) => any;
+};

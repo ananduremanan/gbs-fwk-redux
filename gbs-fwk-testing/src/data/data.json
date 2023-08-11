@@ -1,0 +1,89 @@
+[
+  {
+    "blockId": "1",
+    "blockType": "TextBox",
+    "label": "Item Name:",
+    "placeholder": "Enter Item name",
+    "validationMsg": "Please enter a valid name",
+    "isMandatory": true,
+    "order": 1,
+    "jsonKey": "itemName",
+    "type": "text",
+    "events": [
+      {
+        "eventId": 1,
+        "eventType": "onBlur",
+        "action": "FETCH_API",
+        "apiUrl": "www.abc.com/getdata"
+      }
+    ]
+  },
+  {
+    "blockId": "2",
+    "blockType": "TextBox",
+    "label": "Item Weight:",
+    "placeholder": "Enter Item weight",
+    "validationMsg": "Please enter a valid name",
+    "isMandatory": false,
+    "order": 2,
+    "jsonKey": "itemWeight",
+    "type": "number"
+  },
+  {
+    "blockId": "3",
+    "blockType": "TextBox",
+    "label": "Receipient Name:",
+    "placeholder": "Enter your name",
+    "validationMsg": "Please enter a valid name",
+    "isMandatory": true,
+    "order": 3,
+    "jsonKey": "receipientName"
+  },
+  {
+    "blockId": "4",
+    "blockType": "DropDown",
+    "label": "Country of Origin",
+    "placeholder": "Select your country",
+    "validationMsg": "Please select a country",
+    "isMandatory": false,
+    "order": 4,
+    "jsonKey": "country",
+    "dataSource": [
+      { "text": "USA", "value": "USA" },
+      { "text": "Canada", "value": "Canada" },
+      { "text": "UK", "value": "UK" },
+      { "text": "Australia", "value": "Australia" }
+    ]
+  },
+  {
+    "blockId": "5",
+    "blockType": "DatePicker",
+    "label": "Date of shipment",
+    "placeholder": "Select shipment date",
+    "validationMsg": "Please enter a valid date",
+    "isMandatory": false,
+    "order": 5,
+    "jsonKey": "dob"
+  },
+  {
+    "blockId": "6",
+    "blockType": "CheckBox",
+    "label": "Agree to Terms",
+    "placeholder": "",
+    "validationMsg": "You must agree to the terms",
+    "isMandatory": false,
+    "order": 7,
+    "jsonKey": "agreeToTerms"
+  },
+  {
+    "blockId": "7",
+    "blockType": "DropDown",
+    "label": "Country of Origin",
+    "placeholder": "Select your Title",
+    "validationMsg": "Please select a country",
+    "isMandatory": false,
+    "order": 8,
+    "jsonKey": "origin",
+    "dataSource": "https://jsonplaceholder.typicode.com/todos"
+  }
+]

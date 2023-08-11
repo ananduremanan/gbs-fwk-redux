@@ -1,7 +1,9 @@
 import React, { ChangeEvent, FocusEvent, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "gbs-fwk-core-redux";
-import { setStoreData } from "gbs-fwk-core-redux";
+import { useSelector } from "react-redux";
+import { RootState, messageService } from "gbs-fwk-core-redux";
+import { storeService } from "gbs-fwk-core-redux";
+import { store } from "gbs-fwk-core-redux";
+// import { setStoreData } from "gbs-fwk-core-redux";
 
 interface TextInputProps {
   type?: string;
@@ -46,9 +48,8 @@ export const Textbox: React.FC<TextInputProps> = ({
 }) => {
   // Accessing and storing data from redux store
   const data = useSelector((state: RootState) => state.data.data);
-  //destructuring useDispatch
-  const dispatch = useDispatch();
 
+  //destructuring useDispatch
   const [textValue, settextValue] = useState<FormState>({});
 
   const matchingData = data.flat().find((item: any) => {
@@ -62,10 +63,17 @@ export const Textbox: React.FC<TextInputProps> = ({
     );
     const updatedData = [...data[0]];
     updatedData[index] = { ...updatedData[index], value };
-    dispatch(setStoreData(updatedData));
+    storeService.setData(updatedData);
   };
 
   const inputValue = matchingData ? matchingData.value : textValue[name] || "";
+
+  // validation logic starts here
+  const storeSub = storeService.getStore(store);
+  storeSub.subscribe((state: any) => {
+    console.log(state.data.data[0]);
+  });
+  // validation logic ends here
 
   return (
     <>
@@ -112,6 +120,7 @@ export const Textbox: React.FC<TextInputProps> = ({
           />
         )}
       </>
+      <div className="error"></div>
     </>
   );
 };

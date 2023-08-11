@@ -1,11 +1,7 @@
 export * from "./service/messageService";
 export * from "./service/config-service";
 export * from "./service/document-server-service";
-export {
-  uploadFileResult,
-  uploadResult,
-  documentService,
-} from "./service/document-service";
+export { uploadFileResult, uploadResult, documentService, } from "./service/document-service";
 export * from "./service/http-service";
 export * from "./service/update-data-service";
 export * from "./service/url-service";
@@ -14,4 +10,4 @@ export * from "./service/app-service";
 export * from "./service/app-service-mapping";
 export * from "./redux/dataSlice";
 export * from "./redux/store";
-export * from "./service/store-service"
+export * from "./service/store-service";

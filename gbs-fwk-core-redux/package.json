@@ -1,11 +1,11 @@
 {
-  "name": "gbs-fwk-core",
-  "version": "1.0.24",
+  "name": "gbs-fwk-core-redux",
+  "version": "1.0.0",
   "description": "Grampro FWK Core Module",
   "main": "index.js",
   "module": "dist/index.es.js",
   "type": "module",
-  "types": "types/gbs-fwk-core.d.ts",
+  "types": "types/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx rollup -c",
@@ -19,6 +19,8 @@
   },
   "dependencies": {
     "@babel/core": "7.22.7",
+    "@reduxjs/toolkit": "^1.9.5",
+    "react-redux": "8.1.0",
     "@rollup/plugin-node-resolve": "15.1.0",
     "@tanstack/react-location": "3.7.4",
     "crypto-js": "4.1.1",
