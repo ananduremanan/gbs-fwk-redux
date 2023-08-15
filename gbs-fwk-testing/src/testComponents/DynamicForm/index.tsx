@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, messageService, setStoreData } from "gbs-fwk-core-redux";
 import { useValidateForm } from "../services/useValidateForm";
 import { store } from "gbs-fwk-core-redux";
+import { storeService } from "../services/storeService";
+import { validateInputFields } from "../services/validateFunc";
 
 // Types
 interface FormDataBlock {
@@ -27,7 +29,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ formData }) => {
 
   useEffect(() => {
     const initialData = formData.map((block: FormDataBlock) => {
-      const { blockId, jsonKey, isMandatory } = block;
+      const { blockId, jsonKey, isMandatory, type, isValid } = block;
       const matchingData = jsonData.find(
         (data: any) => data.blockId === blockId && data.jsonKey === jsonKey
       );
@@ -39,15 +41,20 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ formData }) => {
         jsonKey,
         value: inputValue,
         isMandatory,
+        type,
+        isValid,
       };
     });
 
-    dispatch(setStoreData(initialData));
+    // dispatch(setStoreData(initialData));
+    storeService.setData(initialData);
   }, [dispatch, formData]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    messageService.sendMessage({ key: "submit-click" });
+    // event.preventDefault();
+    // storeService.validateSave();
+    validateInputFields(data[0], dispatch);
+    // console.log(data);
   };
 
   return (

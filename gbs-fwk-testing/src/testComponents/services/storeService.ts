@@ -1,13 +1,9 @@
 import { Observable } from "rxjs";
-import { setStoreData } from "../redux/dataSlice";
-import { RootState, store } from "../redux/store";
-import { useSelector } from "react-redux";
-
-const data = useSelector((state: RootState) => state.data.data);
+import { store, setStoreData } from "gbs-fwk-core-redux";
 
 export const storeService = {
   setData: (storeData: unknown) => store.dispatch(setStoreData(storeData)),
-  getStore: (store) => {
+  getStore: (store: any) => {
     return new Observable((subscriber) => {
       const unsubscribe = store.subscribe(() => {
         subscriber.next(store.getState());
@@ -16,7 +12,7 @@ export const storeService = {
       return unsubscribe;
     });
   },
-  // validateSave(store) => {
-
-  // }
+  validateSave: () => {
+    return store;
+  },
 };

@@ -9,6 +9,7 @@
     "order": 1,
     "jsonKey": "itemName",
     "type": "text",
+    "isValid": 0,
     "events": [
       {
         "eventId": 1,
@@ -27,7 +28,8 @@
     "isMandatory": false,
     "order": 2,
     "jsonKey": "itemWeight",
-    "type": "number"
+    "type": "email",
+    "isValid": 0
   },
   {
     "blockId": "3",
@@ -37,7 +39,9 @@
     "validationMsg": "Please enter a valid name",
     "isMandatory": true,
     "order": 3,
-    "jsonKey": "receipientName"
+    "jsonKey": "receipientName",
+    "type": "number",
+    "isValid": 0
   },
   {
     "blockId": "4",

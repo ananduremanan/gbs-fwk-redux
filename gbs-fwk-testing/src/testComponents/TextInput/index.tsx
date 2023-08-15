@@ -71,7 +71,7 @@ export const Textbox: React.FC<TextInputProps> = ({
   // validation logic starts here
   const storeSub = storeService.getStore(store);
   storeSub.subscribe((state: any) => {
-    console.log(state.data.data[0]);
+    // console.log(state.data.data[0]);
   });
   // validation logic ends here
 
