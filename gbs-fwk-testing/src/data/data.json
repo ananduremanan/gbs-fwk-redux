@@ -2,7 +2,7 @@
   {
     "blockId": "1",
     "blockType": "TextBox",
-    "label": "Item Name:",
+    "label": "Name:",
     "placeholder": "Enter Item name",
     "validationMsg": "Please enter a valid name",
     "isMandatory": true,
@@ -22,7 +22,7 @@
   {
     "blockId": "2",
     "blockType": "TextBox",
-    "label": "Item Weight:",
+    "label": "Email:",
     "placeholder": "Enter Item weight",
     "validationMsg": "Please enter a valid name",
     "isMandatory": false,
@@ -34,7 +34,7 @@
   {
     "blockId": "3",
     "blockType": "TextBox",
-    "label": "Receipient Name:",
+    "label": "Any Number:",
     "placeholder": "Enter your name",
     "validationMsg": "Please enter a valid name",
     "isMandatory": true,

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FocusEvent, useState } from "react";
+import React, { ChangeEvent, FocusEvent, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState, messageService } from "gbs-fwk-core-redux";
 import { storeService } from "gbs-fwk-core-redux";
@@ -11,7 +11,7 @@ interface TextInputProps {
   onBlur?: (event: FocusEvent<HTMLInputElement>, props?: any) => void;
   disabled?: boolean;
   required?: boolean;
-  className?: string;
+  className?: any;
   name?: string;
   placeholder?: string;
   value?: any;
@@ -58,6 +58,7 @@ export const Textbox: React.FC<TextInputProps> = ({
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    seterror_msg(false);
     const index = data[0].findIndex(
       (item: any) => item.blockId === name && item.jsonKey === jsonKey
     );
@@ -69,10 +70,27 @@ export const Textbox: React.FC<TextInputProps> = ({
   const inputValue = matchingData ? matchingData.value : textValue[name] || "";
 
   // validation logic starts here
-  const storeSub = storeService.getStore(store);
-  storeSub.subscribe((state: any) => {
-    // console.log(state.data.data[0]);
-  });
+  const [error_msg, seterror_msg] = useState(false);
+
+  useEffect(() => {
+    messageService.getMessage().subscribe((message: any) => {
+      const storeSub = storeService.getStore(store);
+      const subscription = storeSub.subscribe((state: any) => {
+        state.data.data[0] &&
+          state.data.data[0].map((item: any) => {
+            if (item.jsonKey === jsonKey) {
+              // console.log(item.isValid);
+              if (item.isValid === 0 && message.isTrue) {
+                seterror_msg(true);
+              }
+            }
+          });
+      });
+      return () => {
+        subscription.unsubscribe();
+      };
+    });
+  }, [store, jsonKey]);
   // validation logic ends here
 
   return (
@@ -120,7 +138,10 @@ export const Textbox: React.FC<TextInputProps> = ({
           />
         )}
       </>
-      <div className="error"></div>
+      {/* <div className="error"></div> */}
+      <div style={{ color: "red" }}>
+        {error_msg && "Mandatory or value type mismatch"}
+      </div>
     </>
   );
 };

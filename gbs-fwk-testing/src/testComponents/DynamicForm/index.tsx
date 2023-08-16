@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import jsonData from "../../data/valueData.json";
 import { Textbox } from "../TextInput";
 // import { useValidateForm } from "../services/useValidateForm";
@@ -8,6 +8,7 @@ import { useValidateForm } from "../services/useValidateForm";
 import { store } from "gbs-fwk-core-redux";
 import { storeService } from "../services/storeService";
 import { validateInputFields } from "../services/validateFunc";
+import "./dynamic.module.css";
 
 // Types
 interface FormDataBlock {
@@ -26,6 +27,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ formData }) => {
   // Testing
   const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.data.data);
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   useEffect(() => {
     const initialData = formData.map((block: FormDataBlock) => {
@@ -50,11 +52,27 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ formData }) => {
     storeService.setData(initialData);
   }, [dispatch, formData]);
 
+  // let className: any;
+
+  // useEffect(() => {
+  //   // console.log(data);
+  //   if (buttonClicked) {
+  //     data[0] &&
+  //       data[0].map((item: any) => {
+  //         item.isValid != 1
+  //           ? (className = "error-cls")
+  //           : (className = undefined);
+  //       });
+  //   }
+  // }, [data]);
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     // event.preventDefault();
     // storeService.validateSave();
     validateInputFields(data[0], dispatch);
+    messageService.sendMessage({ key: "buttonClicked", isTrue: true });
     // console.log(data);
+    // console.log(className);
   };
 
   return (
@@ -67,6 +85,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ formData }) => {
               return (
                 <div key={blockId}>
                   <Textbox
+                    // key={blockId + className}
                     key={blockId}
                     {...props}
                     type={props.type}

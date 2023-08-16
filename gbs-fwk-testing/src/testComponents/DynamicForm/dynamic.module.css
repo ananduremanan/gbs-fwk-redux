@@ -1,0 +1,7 @@
+.error-cls{
+    border: 1px solid red;
+}
+
+.no-error-cls{
+    border: none
+}

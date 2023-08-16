@@ -17,7 +17,7 @@ interface StoreData {
   isValid: number;
 }
 
-export function validateInputFields(
+export async function validateInputFields(
   storeData: StoreData[],
   dispatch: Function
 ) {
@@ -29,7 +29,7 @@ export function validateInputFields(
     let isValid = 0;
 
     if (isMandatory && value === "" && !value) {
-      isValid = -1;
+      isValid = 0;
     } else {
       switch (type) {
         case "email":
@@ -46,7 +46,7 @@ export function validateInputFields(
           isValid = !isNaN(value) ? 1 : 0;
           break;
         default:
-          isValid = 1;
+          isValid = 0;
           break;
       }
     }
@@ -54,9 +54,7 @@ export function validateInputFields(
     return { ...data, isValid };
   });
 
-  console.log(updatedStoreData);
+  await storeService.setData(updatedStoreData);
 
-  // Dispatch or update the store
-  // dispatch(setStoreData(updatedStoreData));
-  storeService.setData(updatedStoreData);
+  return updatedStoreData;
 }

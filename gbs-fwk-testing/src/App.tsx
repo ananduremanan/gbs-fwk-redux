@@ -10,7 +10,7 @@ function App() {
     storeService.getStore(store);
   }, []);
 
-  // const storeSub = getStore(store);
+  // const storeSub = storeService.getStore(store);
   // storeSub.subscribe((state: any) => {
   //   console.log(state.data.data[0]);
   // });
