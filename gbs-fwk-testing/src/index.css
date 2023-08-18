@@ -400,3 +400,7 @@ button:focus-visible {
 .btn-cls:hover{
   background: rgb(201, 56, 105);
 }
+
+.form-label{
+  display: inline;
+}

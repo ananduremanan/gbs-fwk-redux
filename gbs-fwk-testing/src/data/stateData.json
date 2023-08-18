@@ -1,0 +1,44 @@
+[
+  {
+    "blockId": "1",
+    "blockType": "DropDown",
+    "label": "Select Your State:",
+    "placeholder": "State",
+    "validationMsg": "Please select a State",
+    "isMandatory": true,
+    "order": 1,
+    "jsonKey": "state",
+    "dataSource": "https://api.npoint.io/9f0bc3d70a09031e7003",
+    "isValid": 1,
+    "type": "text"
+  },
+  {
+    "blockId": "2",
+    "blockType": "DropDown",
+    "label": "Select Your District:",
+    "placeholder": "District",
+    "validationMsg": "Please select a District",
+    "isMandatory": true,
+    "order": 2,
+    "jsonKey": "district",
+    "dataSource": "https://api.npoint.io/$state$",
+    "isValid": 1,
+    "type": "text",
+    "dependentKeys": ["state"],
+    "refreshDatasource": true
+  },
+  {
+    "blockId": "3",
+    "blockType": "DropDown",
+    "label": "Select Your Block:",
+    "placeholder": "Block",
+    "validationMsg": "Please select a Block",
+    "isMandatory": true,
+    "order": 3,
+    "jsonKey": "block",
+    "dataSource": "https://api.npoint.io/$district$",
+    "isValid": 1,
+    "type": "text",
+    "refreshDatasource": true
+  }
+]

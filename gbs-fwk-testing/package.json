@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@syncfusion/ej2-react-dropdowns": "^22.2.9",
+    "apexcharts": "^3.41.1",
     "gbs-fwk-core-redux": "file:../gbs-fwk-core-redux/gbs-fwk-core-redux-1.0.0.tgz",
     "react": "^18.2.0",
+    "react-apexcharts": "^1.4.1",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {

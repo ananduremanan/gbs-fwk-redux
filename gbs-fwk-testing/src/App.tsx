@@ -1,9 +1,10 @@
 import "./App.css";
 import DynamicForm from "./testComponents/DynamicForm";
-import formData from "./data/data.json";
+// import formData from "./data/data.json";
 import { store } from "gbs-fwk-core-redux";
 import { storeService } from "gbs-fwk-core-redux";
 import { useEffect } from "react";
+import stateData from "./data/stateData.json"
 
 function App() {
   useEffect(() => {
@@ -18,7 +19,7 @@ function App() {
   return (
     <>
       <h1>Redux Powered Building Block</h1>
-      <DynamicForm formData={formData} />
+      <DynamicForm formData={stateData} />
     </>
   );
 }

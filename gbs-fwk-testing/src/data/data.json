@@ -49,7 +49,7 @@
     "label": "Country of Origin",
     "placeholder": "Select your country",
     "validationMsg": "Please select a country",
-    "isMandatory": false,
+    "isMandatory": true,
     "order": 4,
     "jsonKey": "country",
     "dataSource": [
@@ -57,7 +57,9 @@
       { "text": "Canada", "value": "Canada" },
       { "text": "UK", "value": "UK" },
       { "text": "Australia", "value": "Australia" }
-    ]
+    ],
+    "isValid": 0,
+    "type": "text"
   },
   {
     "blockId": "5",
@@ -88,6 +90,8 @@
     "isMandatory": false,
     "order": 8,
     "jsonKey": "origin",
-    "dataSource": "https://jsonplaceholder.typicode.com/todos"
+    "dataSource": "https://jsonplaceholder.typicode.com/todos",
+    "isValid": 0,
+    "type": "text"
   }
 ]

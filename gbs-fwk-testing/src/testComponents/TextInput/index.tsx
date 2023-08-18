@@ -49,8 +49,9 @@ export const Textbox: React.FC<TextInputProps> = ({
   // Accessing and storing data from redux store
   const data = useSelector((state: RootState) => state.data.data);
 
-  //destructuring useDispatch
-  const [textValue, settextValue] = useState<FormState>({});
+  // const [textValue, settextValue] = useState<FormState>({});
+  const [textValue, ] = useState<FormState>({});
+  const [error_msg, seterror_msg] = useState(false);
 
   const matchingData = data.flat().find((item: any) => {
     return item.blockId === name && item.jsonKey === jsonKey;
@@ -58,20 +59,17 @@ export const Textbox: React.FC<TextInputProps> = ({
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    seterror_msg(false);
     const index = data[0].findIndex(
       (item: any) => item.blockId === name && item.jsonKey === jsonKey
     );
     const updatedData = [...data[0]];
-    updatedData[index] = { ...updatedData[index], value };
+    updatedData[index] = { ...updatedData[index], value, isValid: 1 };
     storeService.setData(updatedData);
   };
 
   const inputValue = matchingData ? matchingData.value : textValue[name] || "";
 
   // validation logic starts here
-  const [error_msg, seterror_msg] = useState(false);
-
   useEffect(() => {
     messageService.getMessage().subscribe((message: any) => {
       const storeSub = storeService.getStore(store);
@@ -79,10 +77,7 @@ export const Textbox: React.FC<TextInputProps> = ({
         state.data.data[0] &&
           state.data.data[0].map((item: any) => {
             if (item.jsonKey === jsonKey) {
-              // console.log(item.isValid);
-              if (item.isValid === 0 && message.isTrue) {
-                seterror_msg(true);
-              }
+              seterror_msg(item.isValid === 0 && message.isTrue);
             }
           });
       });
@@ -138,7 +133,6 @@ export const Textbox: React.FC<TextInputProps> = ({
           />
         )}
       </>
-      {/* <div className="error"></div> */}
       <div style={{ color: "red" }}>
         {error_msg && "Mandatory or value type mismatch"}
       </div>
