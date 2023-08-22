@@ -134,27 +134,6 @@ export const Grid: React.FC<GridProps> = ({
     toolbarValue = undefined;
   }
 
-  // const rowDataBound = (args: any) => {
-  //   // args.isSelectable = args.data.List % 5 === 0;
-  //   // console.log(args);
-  // };
-
-  // const handleCheckboxClick = (e: any) => {
-  //   const checkboxVal = e.target.checked;
-  //   console.log(checkboxVal);
-  // };
-
-  // const queryCellHandle = (args: any) => {
-  //   if (args.column.field === undefined) {
-  //     const checkboxInput = args.node.querySelector(
-  //       '.e-checkbox-wrapper input[type="checkbox"]'
-  //     );
-  //     if (checkboxInput) {
-  //       checkboxInput.addEventListener("click", handleCheckboxClick);
-  //     }
-  //   }
-  // };
-
   const settings: SelectionSettingsModel = {
     type: "Multiple",
     persistSelection: true,
@@ -180,8 +159,6 @@ export const Grid: React.FC<GridProps> = ({
       created={created}
       id={id}
       rowSelected={rowSelected}
-      // rowDataBound={rowDataBound}
-      // queryCellInfo={queryCellHandle}
       selectionSettings={settings}
     >
       <ColumnsDirective>
