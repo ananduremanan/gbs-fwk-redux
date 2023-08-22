@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { ComboBoxComponent } from "@syncfusion/ej2-react-dropdowns";
 import { useSelector } from "react-redux";
 import { storeService, store, RootState } from "gbs-fwk-core-redux";
@@ -23,6 +23,7 @@ interface DropdownProps {
   showSelectAll?: boolean;
   dependentKeys?: any[];
   refreshDatasource?: boolean;
+  onValidation?: boolean;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
@@ -42,10 +43,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
   label,
   autofill,
   disabled,
-  // refreshDatasource,
+  dependentKeys,
 }) => {
   const [data, setData] = useState<any[]>([]);
   const [error_msg, seterror_msg] = useState(false);
+
+  // const comboBoxRef = React.useRef(null);
 
   var storeData = useSelector((state: RootState) => state.data.data);
 
@@ -60,7 +63,13 @@ export const Dropdown: React.FC<DropdownProps> = ({
       storeData[0] &&
         storeData[0].map((item: any) => {
           if (item.jsonKey === jsonKey) {
-            seterror_msg(item.isValid === 0); //&& message.isTrue
+            if (item.value === null) {
+              const comboBoxObj = (document.getElementById(jsonKey) as any)
+                .ej2_instances[0];
+              comboBoxObj.text = null;
+              // comboBoxObj.dataBind();
+            }
+            seterror_msg(item.isValid === 0 && item.onValidation); //&& message.isTrue
             if (item.refreshDatasource) fetchData(dataSource);
           }
         });
@@ -76,16 +85,19 @@ export const Dropdown: React.FC<DropdownProps> = ({
       try {
         let dataSource_url: any = checkDynamicQueryParam(dataSource);
 
+        // Check for problematic values in dataSource_url
+        if (dataSource_url === null || dataSource_url.includes("$")) {
+          return; // Skip fetching and continue execution
+        }
+
         let response = await fetch(dataSource_url);
         let data = await response.json();
 
-        const mappedData = data.map((item: any) => ({
-          text: item.title,
-          value: item.id.toString(),
-        }));
-        setData(mappedData);
+        setData(data);
       } catch (error) {
-        console.error("Failed to fetch data from API:", error);
+        // console.error("Failed to fetch data from API:", error);
+        // console.log("Error Happened");
+        return;
       }
     }
   };
@@ -122,6 +134,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const dependentBlocks = updatedData.filter(
       (item) => item.dependentKeys && item.dependentKeys.includes(jsonKey)
     );
+
     dependentBlocks.forEach((block) => {
       const blockIndex = updatedData.findIndex(
         (item) => item.blockId === block.blockId
@@ -136,14 +149,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
   };
 
   return (
-    <>
+    <div className="dropdown-wrapper">
       {label && (
         <label htmlFor={id} className="form-label" style={{ width: "20rem" }}>
           {label} {required ? <i className="req-lbl">*</i> : <></>}
         </label>
       )}
       <ComboBoxComponent
-        id={id}
+        id={jsonKey}
         dataSource={data}
         fields={fields}
         placeholder={placeholder}
@@ -157,10 +170,11 @@ export const Dropdown: React.FC<DropdownProps> = ({
         autofill={autofill}
         enabled={!disabled}
         type="dropdown"
+        // ref={comboBoxRef}
       />
       <div style={{ color: "red" }}>
         {error_msg && "Mandatory or value type mismatch"}
       </div>
-    </>
+    </div>
   );
 };

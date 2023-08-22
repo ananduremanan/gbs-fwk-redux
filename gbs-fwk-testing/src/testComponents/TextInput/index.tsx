@@ -50,7 +50,7 @@ export const Textbox: React.FC<TextInputProps> = ({
   const data = useSelector((state: RootState) => state.data.data);
 
   // const [textValue, settextValue] = useState<FormState>({});
-  const [textValue, ] = useState<FormState>({});
+  const [textValue] = useState<FormState>({});
   const [error_msg, seterror_msg] = useState(false);
 
   const matchingData = data.flat().find((item: any) => {
@@ -71,25 +71,23 @@ export const Textbox: React.FC<TextInputProps> = ({
 
   // validation logic starts here
   useEffect(() => {
-    messageService.getMessage().subscribe((message: any) => {
-      const storeSub = storeService.getStore(store);
-      const subscription = storeSub.subscribe((state: any) => {
-        state.data.data[0] &&
-          state.data.data[0].map((item: any) => {
-            if (item.jsonKey === jsonKey) {
-              seterror_msg(item.isValid === 0 && message.isTrue);
-            }
-          });
-      });
-      return () => {
-        subscription.unsubscribe();
-      };
+    const storeSub = storeService.getStore(store);
+    const subscription = storeSub.subscribe((state: any) => {
+      state.data.data[0] &&
+        state.data.data[0].map((item: any) => {
+          if (item.jsonKey === jsonKey) {
+            seterror_msg(item.isValid === 0 && item.onValidation);
+          }
+        });
     });
+    return () => {
+      subscription.unsubscribe();
+    };
   }, [store, jsonKey]);
   // validation logic ends here
 
   return (
-    <>
+    <div className="text-box-wrapper">
       {label && (
         <label htmlFor={id} className="form-label">
           {label} {required ? <i className="req-lbl">*</i> : <></>}
@@ -136,6 +134,6 @@ export const Textbox: React.FC<TextInputProps> = ({
       <div style={{ color: "red" }}>
         {error_msg && "Mandatory or value type mismatch"}
       </div>
-    </>
+    </div>
   );
 };

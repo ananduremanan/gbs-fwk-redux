@@ -1,12 +1,12 @@
-import { setStoreData, storeService } from "gbs-fwk-core-redux";
+import { storeService } from "gbs-fwk-core-redux";
 
-interface FormDataBlock {
-  blockId: string;
-  jsonKey: string;
-  isMandatory: boolean;
-  type: string;
-  isValid: number;
-}
+// interface FormDataBlock {
+//   blockId: string;
+//   jsonKey: string;
+//   isMandatory: boolean;
+//   type: string;
+//   isValid: number;
+// }
 
 interface StoreData {
   blockId: string;
@@ -15,6 +15,7 @@ interface StoreData {
   isMandatory: boolean;
   type: string;
   isValid: number;
+  onValidation: boolean;
 }
 
 export async function validateInputFields(
@@ -27,6 +28,7 @@ export async function validateInputFields(
     const { value, type, isMandatory } = data;
 
     let isValid = 0;
+    let onValidation = true;
 
     if (isMandatory && value === "" && !value) {
       isValid = 0;
@@ -40,10 +42,10 @@ export async function validateInputFields(
             : 0;
           break;
         case "text":
-          isValid = value.length > 0 ? 1 : 0;
+          isValid = value && value.length > 0 ? 1 : 0;
           break;
         case "number":
-          isValid = !isNaN(value) ? 1 : 0;
+          isValid = value && !isNaN(value) ? 1 : 0;
           break;
         default:
           isValid = 0;
@@ -51,7 +53,7 @@ export async function validateInputFields(
       }
     }
 
-    return { ...data, isValid };
+    return { ...data, isValid, onValidation };
   });
 
   await storeService.setData(updatedStoreData);

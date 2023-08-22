@@ -1,18 +1,6 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 a {
   font-weight: 500;
@@ -373,20 +361,19 @@ button:focus-visible {
   padding-top: 25px;
 }
 
-
-.wrapper-cls{
+.wrapper-cls {
   padding: 1rem;
   margin-top: 4rem;
 }
 
-.form-cls{
-  display: inline-block;
+.form-cls {
+  /* display: inline-block; */
   padding: 1rem 2rem 1rem 2rem;
   border: 1px solid rgb(227, 22, 91);
   border-radius: 2rem;
 }
 
-.btn-cls{
+.btn-cls {
   background: rgb(227, 22, 91);
   border: none;
   border-radius: 1rem;
@@ -397,10 +384,10 @@ button:focus-visible {
   margin-top: 1rem;
 }
 
-.btn-cls:hover{
+.btn-cls:hover {
   background: rgb(201, 56, 105);
 }
 
-.form-label{
+.form-label {
   display: inline;
 }

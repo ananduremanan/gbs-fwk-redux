@@ -5,6 +5,10 @@ import { RootState, messageService } from "gbs-fwk-core-redux";
 import { storeService } from "../services/storeService";
 import { validateInputFields } from "../services/validateFunc";
 import { Dropdown } from "../DropDown";
+import { Textbox } from "../TextInput";
+import { CheckBox } from "../check-box";
+import { MultiSelectDropdown } from "../multi-select";
+import { DatePicker } from "../datePicker";
 // import { Textbox } from "../TextInput";
 
 // Types
@@ -25,7 +29,16 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ formData }) => {
 
   useEffect(() => {
     const initialData = formData.map((block: FormDataBlock) => {
-      const { blockId, jsonKey, isMandatory, type, isValid, refreshDatasource } = block;
+      const {
+        blockId,
+        jsonKey,
+        isMandatory,
+        type,
+        isValid,
+        refreshDatasource,
+        dependentKeys,
+        onValidation,
+      } = block;
       const matchingData = jsonData.find(
         (data: any) => data.blockId === blockId && data.jsonKey === jsonKey
       );
@@ -37,7 +50,9 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ formData }) => {
         isMandatory,
         type,
         isValid,
-        refreshDatasource
+        refreshDatasource,
+        dependentKeys,
+        onValidation,
       };
     });
     storeService.setData(initialData);
@@ -45,47 +60,115 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ formData }) => {
 
   const handleClick = () => {
     validateInputFields(data[0], dispatch);
-    messageService.sendMessage({ key: "buttonClicked", isTrue: true });
+    // messageService.sendMessage({ key: "buttonClicked", isTrue: true });
+    console.log("Final Store Data is :", data[0]);
   };
 
   return (
-    <div className="wrapper-cls">
-      <div className="form-cls">
-        {formData.map((block) => {
-          const {
-            blockType,
-            blockId,
-            label,
-            jsonKey,
-            isMandatory,
-            dependentKeys,
-            refreshDatasource,
-            ...props
-          } = block;
-          switch (blockType) {
-            case "DropDown":
-              return (
-                <div key={blockId} style={{ display: "flex" }}>
-                  <Dropdown
+    <div className="">
+      {formData.map((block) => {
+        const {
+          blockType,
+          blockId,
+          label,
+          jsonKey,
+          isMandatory,
+          dependentKeys,
+          refreshDatasource,
+          onValidation,
+          ...props
+        } = block;
+        switch (blockType) {
+          case "TextBox":
+            return (
+              <div className="flex" key={blockId}>
+                <div className="mt-2">
+                  <Textbox
                     key={blockId}
                     {...props}
-                    jsonKey={jsonKey}
+                    type={props.type}
                     name={blockId}
+                    jsonKey={jsonKey}
                     label={label}
-                    required={isMandatory}
                     id={blockId}
-                    dependentKeys={dependentKeys}
-                    refreshDatasource={refreshDatasource}
+                    required={props.isMandatory}
+                    className={`bg-gray-200 rounded-xl p-1`}
                   />
                 </div>
-              );
-          }
-        })}
-        <button className="btn-cls" type="submit" onClick={handleClick}>
-          Submit
-        </button>
-        <div className="error"></div>
-      </div>
+              </div>
+            );
+          case "DropDown":
+            return (
+              <div key={blockId} className="flex flex-col">
+                <Dropdown
+                  key={blockId}
+                  {...props}
+                  jsonKey={jsonKey}
+                  name={blockId}
+                  label={label}
+                  required={isMandatory}
+                  id={blockId}
+                  dependentKeys={dependentKeys}
+                  refreshDatasource={refreshDatasource}
+                  onValidation={onValidation}
+                />
+              </div>
+            );
+          case "CheckBox":
+            return (
+              <div className="flex" key={blockId}>
+                <div className="mt-2">
+                  <CheckBox
+                    key={blockId}
+                    {...props}
+                    name={blockId}
+                    jsonKey={jsonKey}
+                    label={label}
+                    id={blockId}
+                  />
+                </div>
+              </div>
+            );
+          case "multi-select":
+            return (
+              <div className="flex" key={blockId}>
+                <div className="mt-2">
+                  <MultiSelectDropdown
+                    key={blockId}
+                    {...props}
+                    name={blockId}
+                    jsonKey={jsonKey}
+                    label={label}
+                    id={blockId}
+                  />
+                </div>
+              </div>
+            );
+          case "date":
+            return (
+              <div className="flex" key={blockId}>
+                <div className="mt-2">
+                  <DatePicker
+                    key={blockId}
+                    {...props}
+                    name={blockId}
+                    jsonKey={jsonKey}
+                    label={label}
+                    id={blockId}
+                    required={props.isMandatory}
+                    className={`bg-gray-200 rounded-xl p-1`}
+                  />
+                </div>
+              </div>
+            );
+        }
+      })}
+
+      {/* <CascadedDrop /> */}
+      <button className="btn-cls" type="submit" onClick={handleClick}>
+        Submit
+      </button>
+      <div className="error"></div>
     </div>
   );
 };

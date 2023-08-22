@@ -9,15 +9,7 @@
     "order": 1,
     "jsonKey": "itemName",
     "type": "text",
-    "isValid": 0,
-    "events": [
-      {
-        "eventId": 1,
-        "eventType": "onBlur",
-        "action": "FETCH_API",
-        "apiUrl": "www.abc.com/getdata"
-      }
-    ]
+    "isValid": 0
   },
   {
     "blockId": "2",

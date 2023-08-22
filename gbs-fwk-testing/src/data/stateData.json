@@ -1,19 +1,57 @@
 [
   {
     "blockId": "1",
+    "blockType": "TextBox",
+    "label": "Name:",
+    "placeholder": "Enter Item name",
+    "validationMsg": "Please enter a valid name",
+    "isMandatory": true,
+    "order": 1,
+    "jsonKey": "itemName",
+    "type": "text",
+    "isValid": 0
+  },
+  {
+    "blockId": "2",
+    "blockType": "TextBox",
+    "label": "Email:",
+    "placeholder": "Enter Item weight",
+    "validationMsg": "Please enter a valid name",
+    "isMandatory": false,
+    "order": 2,
+    "jsonKey": "itemWeight",
+    "type": "email",
+    "isValid": 0
+  },
+  {
+    "blockId": "3",
+    "blockType": "TextBox",
+    "label": "Any Number:",
+    "placeholder": "Enter your name",
+    "validationMsg": "Please enter a valid name",
+    "isMandatory": true,
+    "order": 3,
+    "jsonKey": "receipientName",
+    "type": "number",
+    "isValid": 0
+  },
+  {
+    "blockId": "4",
     "blockType": "DropDown",
     "label": "Select Your State:",
     "placeholder": "State",
     "validationMsg": "Please select a State",
     "isMandatory": true,
-    "order": 1,
+    "order": 4,
     "jsonKey": "state",
     "dataSource": "https://api.npoint.io/9f0bc3d70a09031e7003",
     "isValid": 1,
-    "type": "text"
+    "type": "text",
+    "dependentKeys": [],
+    "onValidation": false
   },
   {
-    "blockId": "2",
+    "blockId": "5",
     "blockType": "DropDown",
     "label": "Select Your District:",
     "placeholder": "District",
@@ -22,23 +60,84 @@
     "order": 2,
     "jsonKey": "district",
     "dataSource": "https://api.npoint.io/$state$",
-    "isValid": 1,
+    "isValid": 5,
     "type": "text",
     "dependentKeys": ["state"],
-    "refreshDatasource": true
+    "refreshDatasource": true,
+    "onValidation": false
   },
   {
-    "blockId": "3",
+    "blockId": "6",
     "blockType": "DropDown",
     "label": "Select Your Block:",
     "placeholder": "Block",
     "validationMsg": "Please select a Block",
     "isMandatory": true,
-    "order": 3,
+    "order": 6,
     "jsonKey": "block",
     "dataSource": "https://api.npoint.io/$district$",
     "isValid": 1,
+    "type": "number",
+    "refreshDatasource": true,
+    "dependentKeys": ["state", "district"],
+    "onValidation": false
+  },
+  {
+    "blockId": "7",
+    "blockType": "CheckBox",
+    "label": "Jedi: ",
+    "validationMsg": "Please select a Block",
+    "isMandatory": false,
+    "order": 7,
+    "jsonKey": "check1",
+    "isValid": 1,
+    "type": "checkbox",
+    "onValidation": true
+  },
+  {
+    "blockId": "8",
+    "blockType": "CheckBox",
+    "label": "Sith: ",
+    "validationMsg": "Please select a Block",
+    "isMandatory": false,
+    "order": 8,
+    "jsonKey": "check2",
+    "isValid": 1,
+    "type": "checkbox",
+    "onValidation": true
+  },
+  {
+    "blockId": "9",
+    "blockType": "multi-select",
+    "label": "Select Your Favourites:",
+    "placeholder": "fav",
+    "validationMsg": "Please select a District",
+    "isMandatory": true,
+    "order": 9,
+    "jsonKey": "fav1",
+    "dataSource": [
+      { "Code": "AU", "Name": "Australia" },
+      { "Code": "BM", "Name": "Bermuda" },
+      { "Code": "CA", "Name": "Canada" },
+      { "Code": "CM", "Name": "Cameroon" },
+      { "Code": "DK", "Name": "Denmark" }
+    ],
+    "fields": { "text": "Name", "value": "Code" },
+    "isValid": 1,
     "type": "text",
-    "refreshDatasource": true
+    "onValidation": false
+  },
+  {
+    "blockId": "10",
+    "blockType": "date",
+    "label": "Select Your dob:",
+    "placeholder": "dob",
+    "validationMsg": "Please select a valid date",
+    "isMandatory": false,
+    "order": 10,
+    "jsonKey": "date",
+    "isValid": 5,
+    "type": "date",
+    "onValidation": true
   }
 ]
