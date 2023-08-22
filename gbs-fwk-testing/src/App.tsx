@@ -1,116 +1,27 @@
-// import "./App.css";
-// import DynamicForm from "./testComponents/DynamicForm";
-// // import formData from "./data/data.json";
-// import { store } from "gbs-fwk-core-redux";
-// import { storeService } from "gbs-fwk-core-redux";
-// import { useEffect, useState } from "react";
-// import stateData from "./data/stateData.json";
-// import { Grid } from "./testComponents/grid";
-// import { data } from "./data/dataSource";
+import "./App.css";
+import DynamicForm from "./testComponents/DynamicForm";
+// import formData from "./data/data.json";
+import { store } from "gbs-fwk-core-redux";
+import { storeService } from "gbs-fwk-core-redux";
+import { useEffect } from "react";
+import stateData from "./data/stateData.json";
 
-// function App() {
-//   const [rowsFunction, setRowsFunction] = useState<any>(() => {});
+function App() {
+  useEffect(() => {
+    storeService.getStore(store);
+  }, []);
 
-//   useEffect(() => {
-//     storeService.getStore(store);
-//   }, []);
-
-//   const getRows = () => {
-//     console.log("Get Rows Clicked");
-//     const selectedRowsData = rowsFunction(); // Invoke the callback to get selected row data
-//     console.log("Selected Rows Data:", selectedRowsData);
-//   };
-
-//   // const storeSub = storeService.getStore(store);
-//   // storeSub.subscribe((state: any) => {
-//   //   console.log(state.data.data[0]);
-//   // });
-
-//   const columns = [
-//     { field: "OrderID", width: "200", textAlign: "Right", isPrimaryKey: true },
-//     { field: "CustomerID", width: "100" },
-//     { field: "EmployeeID", width: "100", textAlign: "Right" },
-//     {
-//       field: "Freight",
-//       headerText: "Frieght",
-//       width: "200",
-//     },
-//     { field: "ShipCountry", width: "200" }, // clipMode enables tooltip for lengthy texts.
-//     { field: "ShipAddress", width: "150" },
-//   ];
-
-//   return (
-//     <>
-//       {/* <h1 className="mb-8">Redux Powered Building Block</h1> */}
-//       <h1 className="mb-8 text-pink-600">Grid with CheckBox</h1>
-//       {/* <DynamicForm formData={stateData} /> */}
-//       <Grid
-//         dataSource={data}
-//         pageSize={5}
-//         columns={columns}
-//         allowPaging={true}
-//         id={"grid"}
-//         allowCheckBox={true}
-//         selectedRows={(rows: any) => {
-//           setRowsFunction(() => rows);
-//         }}
-//       />
-//       <button onClick={getRows}>GET ROWS</button>
-//     </>
-//   );
-// }
-
-// export default App;
-
-import React, { useEffect } from "react";
-import { Textbox } from "./testComponents/TextInput/TextInput";
-
-const MyComponent = () => {
-  // useEffect(() => {
-  //   const inputQuantity: any[] = [];
-  //   const zipCodeInput = document.querySelector("#zipCode");
-
-  //   zipCodeInput?.addEventListener(
-  //     "keyup",
-  //     function (this: HTMLInputElement, e: any) {
-  //       const field = this;
-  //       const val: any = this.value;
-  //       const thisIndex = parseInt(field.dataset.idx ?? "0", 10);
-
-  //       if (
-  //         (this.validity && this.validity.badInput) ||
-  //         isNaN(val) ||
-  //         field.validity.typeMismatch
-  //       ) {
-  //         this.value = inputQuantity[thisIndex];
-  //         return;
-  //       }
-
-  //       if (val.length > Number(field.getAttribute("maxlength"))) {
-  //         const newVal = val.slice(0, 5);
-  //         field.value = newVal;
-  //       }
-
-  //       inputQuantity[thisIndex] = val;
-  //     }
-  //   );
-  // }, []);
+  // const storeSub = storeService.getStore(store);
+  // storeSub.subscribe((state: any) => {
+  //   console.log(state.data.data[0]);
+  // });
 
   return (
     <>
-      <label htmlFor="">Enter Number Here:</label>
-      <Textbox
-        className={`bg-gray-200 rounded-xl p-1 w-18`}
-        type="number"
-        min="0"
-        max="99999"
-        maxLength={2}
-        name=""
-        id="zipCode"
-        placeholder="Enter a number here"
-      />
+      <h1 className="mb-8 text-pink-600">Grid with CheckBox</h1>
+      <DynamicForm formData={stateData} />
     </>
   );
-};
+}
 
-export default MyComponent;
+export default App;

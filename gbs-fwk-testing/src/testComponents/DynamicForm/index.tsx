@@ -78,17 +78,10 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ formData }) => {
     validateInputFields(data[0], dispatch);
     // messageService.sendMessage({ key: "buttonClicked", isTrue: true });
     console.log("Final Store Data is :", data[0]);
-    // const isValid = useValidateForm();
-    // console.log(isValid);
-
-    const { isValid, subscribe } = useValidateForm();
-    const unsubscribe = subscribe((isValid) => {
-      console.log(isValid);
-    });
-
-    // if (isValid) {
-    //   setOpen(true);
-    // }
+    const isValidate = useValidateForm(data[0]);
+    if (isValidate) {
+      setOpen(true);
+    }
   };
 
   const handleClose = () => setOpen(false);
@@ -207,10 +200,16 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ formData }) => {
         >
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
+              Here is the Details you've Submitted
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+              {data[0].map((item: any) => {
+                return (
+                  <div key={item.blockId}>
+                    <div>{item.value}</div>
+                  </div>
+                );
+              })}
             </Typography>
           </Box>
         </Modal>
