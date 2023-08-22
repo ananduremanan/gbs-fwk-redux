@@ -15,8 +15,12 @@ import {
   ToolbarItems,
 } from "@syncfusion/ej2-react-grids";
 import { DataUtil } from "@syncfusion/ej2-data";
-import { ExcelExport } from "@syncfusion/ej2-react-grids";
+import {
+  ExcelExport,
+  SelectionSettingsModel,
+} from "@syncfusion/ej2-react-grids";
 import { ClickEventArgs } from "@syncfusion/ej2-navigations";
+import { SelectionType } from "@syncfusion/ej2-react-grids";
 
 // Types
 interface GridProps {
@@ -33,6 +37,8 @@ interface GridProps {
   excelFileName?: any;
   toolBarName?: any;
   onRefresh?: any;
+  allowCheckBox?: boolean;
+  selectedRows?: any;
 }
 
 // Define the MultiSelectDropdown component
@@ -50,6 +56,8 @@ export const Grid: React.FC<GridProps> = ({
   excelFileName = "Excel_Export",
   toolBarName = "ExcelExport",
   onRefresh,
+  allowCheckBox,
+  selectedRows,
 }) => {
   const [source, setSource] = useState(dataSource);
 
@@ -67,10 +75,24 @@ export const Grid: React.FC<GridProps> = ({
       });
   };
 
+  const rowSelected = () => {
+    let selectedRowData;
+    if (grid) {
+      selectedRowData = grid.getSelectedRecords();
+    }
+    // if (selectedRows) {
+    //   selectedRows(selectedRowData);
+    // }
+    return selectedRowData;
+  };
+
   // Force Refresh grid
   useEffect(() => {
     if (onRefresh) {
       onRefresh(Refresh);
+    }
+    if (selectedRows) {
+      selectedRows(rowSelected);
     }
   }, []);
 
@@ -101,7 +123,7 @@ export const Grid: React.FC<GridProps> = ({
   const pageSettings: PageSettingsModel = { pageSize: pageSize };
 
   // Toolbar options based on serach and excel export
-  let toolbarValue;
+  let toolbarValue: any;
   if (allowGenericSearch && allowExcelExport) {
     toolbarValue = [...toolbarOptions, ...toolbar];
   } else if (allowGenericSearch) {
@@ -111,6 +133,32 @@ export const Grid: React.FC<GridProps> = ({
   } else {
     toolbarValue = undefined;
   }
+
+  // const rowDataBound = (args: any) => {
+  //   // args.isSelectable = args.data.List % 5 === 0;
+  //   // console.log(args);
+  // };
+
+  // const handleCheckboxClick = (e: any) => {
+  //   const checkboxVal = e.target.checked;
+  //   console.log(checkboxVal);
+  // };
+
+  // const queryCellHandle = (args: any) => {
+  //   if (args.column.field === undefined) {
+  //     const checkboxInput = args.node.querySelector(
+  //       '.e-checkbox-wrapper input[type="checkbox"]'
+  //     );
+  //     if (checkboxInput) {
+  //       checkboxInput.addEventListener("click", handleCheckboxClick);
+  //     }
+  //   }
+  // };
+
+  const settings: SelectionSettingsModel = {
+    type: "Multiple",
+    persistSelection: true,
+  };
 
   return (
     // {/* generates the columns of the grid */}
@@ -131,8 +179,13 @@ export const Grid: React.FC<GridProps> = ({
       toolbarClick={toolbarClick}
       created={created}
       id={id}
+      rowSelected={rowSelected}
+      // rowDataBound={rowDataBound}
+      // queryCellInfo={queryCellHandle}
+      selectionSettings={settings}
     >
       <ColumnsDirective>
+        {allowCheckBox && <ColumnDirective type="checkbox" width="50" />}
         {columns.map((column) => (
           // if column.template exists, set the template property in ColumnDirective
           <ColumnDirective
@@ -145,6 +198,7 @@ export const Grid: React.FC<GridProps> = ({
             format={column.format}
             allowFiltering={column.allowFiltering == true}
             clipMode={column.clipMode}
+            isPrimaryKey={column.isPrimaryKey}
           />
         ))}
       </ColumnsDirective>
